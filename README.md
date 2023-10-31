@@ -23,7 +23,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [x] Deve ser possível se cadastrar como uma ORG
 
-[ ] Deve ser possível realizar login como uma ORG
+[x] Deve ser possível realizar login como uma ORG
 
 ## Requisitos Não-Funcionais
 [ ] Deve ter testes unitários

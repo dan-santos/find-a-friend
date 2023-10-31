@@ -29,4 +29,12 @@ export class Organization extends Entity<OrganizationProps> {
     }, id);
     return organization;
   }
+
+  get password() {
+    return this.props.password;
+  }
+
+  get email() {
+    return this.props.email;
+  }
 }

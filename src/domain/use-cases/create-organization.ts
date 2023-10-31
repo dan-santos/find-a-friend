@@ -1,3 +1,4 @@
+import { ICrypto } from '../auth/crypto.interface';
 import { Organization } from '../entities/organization';
 import { IOrganizationRepository } from '../repositories/organization.repository';
 
@@ -12,7 +13,8 @@ interface CreateOrganizationUseCaseRequest {
 
 export class CreateOrganizationUseCase {
   constructor(
-    private organizationRepository: IOrganizationRepository
+    private organizationRepository: IOrganizationRepository,
+    private cryptoService: ICrypto
   ) { }
 
   async execute({
@@ -25,7 +27,7 @@ export class CreateOrganizationUseCase {
       cep,
       phone,
       address,
-      password
+      password: await this.cryptoService.hash(password)
     });
 
     await this.organizationRepository.create(organization);

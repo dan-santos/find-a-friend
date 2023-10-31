@@ -7,5 +7,11 @@ export class InMemoryOrganizationRepository implements IOrganizationRepository {
   async create(organization: Organization): Promise<void> {
     this.items.push(organization);
   }
+
+  async findByEmail(organizationEmail: string): Promise<Organization | null> {
+    const organization = this.items.find(org => org.email === organizationEmail);
+    if (!organization) return null;
+    return organization;
+  }
   
 }
