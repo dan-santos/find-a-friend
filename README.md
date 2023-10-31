@@ -26,11 +26,11 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 [x] Deve ser possível realizar login como uma ORG
 
 ## Requisitos Não-Funcionais
-[ ] Deve ter testes unitários
+[x] Deve ter testes unitários
 
 [ ] Deve ter testes end-2-end
 
-[ ] Deve ser integrado a uma pipeline de CI/CD do github actions
+[x] Deve ser integrado a uma pipeline de CI/CD do github actions
 
 [ ] Deve ser deployado em nuvem
 
