@@ -21,7 +21,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [ ] Deve ser possível visualizar detalhes de um pet para adoção
 
-[ ] Deve ser possível se cadastrar como uma ORG
+[x] Deve ser possível se cadastrar como uma ORG
 
 [ ] Deve ser possível realizar login como uma ORG
 
@@ -39,7 +39,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 ## Regras de Negócios
 [ ] Para listar os pets, obrigatoriamente precisamos informar a cidade
 
-[ ] Uma ORG precisa ter um endereço e um número de WhatsApp
+[x] Uma ORG precisa ter um endereço e um número de WhatsApp
 
 [ ] Um pet deve estar ligado a uma ORG
 
