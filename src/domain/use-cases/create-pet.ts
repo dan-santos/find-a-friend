@@ -17,7 +17,7 @@ interface CreatePetUseCaseRequest {
 
 export class CreatePetUseCase {
   constructor(
-    private petRepository: IPetRepository
+    private petsRepository: IPetRepository
   ) { }
 
   async execute({
@@ -38,7 +38,7 @@ export class CreatePetUseCase {
       photosIds
     });
 
-    await this.petRepository.create(pet);
+    await this.petsRepository.create(pet);
 
     return pet;
   }

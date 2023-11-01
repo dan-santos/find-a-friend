@@ -8,4 +8,7 @@ export class InMemoryPetRepository implements IPetRepository {
     this.items.push(pet);
   }
   
+  async findManyByOrgIds(orgIds: string[]): Promise<Pet[]> {
+    return this.items.filter(pet => orgIds.includes(pet.orgId.toString()));
+  }
 }

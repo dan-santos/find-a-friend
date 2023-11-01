@@ -37,4 +37,8 @@ export class Organization extends Entity<OrganizationProps> {
   get email() {
     return this.props.email;
   }
+
+  get address() {
+    return this.props.address;
+  }
 }

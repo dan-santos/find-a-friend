@@ -15,7 +15,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 ## Requisitos Funcionais
 [x] Deve ser possível cadastrar um pet
 
-[ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
+[x] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 
 [ ] Deve ser possível filtrar pets por suas características
 
