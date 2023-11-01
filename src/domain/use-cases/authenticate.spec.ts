@@ -1,8 +1,8 @@
 import { InMemoryOrganizationRepository } from 'src/test/repositories/in-memory-organization-repository';
 import { BcryptHasher } from 'src/infra/auth/bcrypt-hasher';
-import { Organization } from '../entities/organization';
 import { AuthenticateUseCase } from './authenticate';
 import { InvalidCredentialsError } from 'src/core/errors/custom-errors';
+import { makeOrganization } from 'src/test/factories/make-organization';
 
 let crypto: BcryptHasher;
 let repository: InMemoryOrganizationRepository;
@@ -16,11 +16,7 @@ describe('authenticate organization tests', () => {
   });
   
   it('should be able to authenticate a existing organization', async () => {
-    const createdOrg = Organization.create({
-      responsableName: 'Org Owner',
-      address: 'fake address',
-      cep: '00000-000',
-      phone: '123-145',
+    const createdOrg = makeOrganization({
       email: 'fake@mail.com',
       password: await crypto.hash('123456')
     });
@@ -38,11 +34,7 @@ describe('authenticate organization tests', () => {
   });
 
   it('should NOT be able to authenticate a organization with wrong password', async () => {
-    const createdOrg = Organization.create({
-      responsableName: 'Org Owner',
-      address: 'fake address',
-      cep: '00000-000',
-      phone: '123-145',
+    const createdOrg = makeOrganization({
       email: 'fake@mail.com',
       password: await crypto.hash('123456')
     });

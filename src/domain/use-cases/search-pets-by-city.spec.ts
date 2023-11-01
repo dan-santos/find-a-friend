@@ -28,4 +28,13 @@ describe('authenticate organization tests', () => {
 
     expect(pets).toHaveLength(1);
   });
+
+  it('should NOT be able to fetch pets located in unexistent city', async () => {
+    petsRepository.create(makePet());
+    petsRepository.create(makePet());
+    
+    const { pets } = await sut.execute({ city: 'City ABC' });
+
+    expect(pets).toHaveLength(0);
+  });
 });
