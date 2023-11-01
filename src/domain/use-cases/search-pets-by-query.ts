@@ -1,22 +1,23 @@
-import { Pet } from '../entities/pet';
+import { Pet, PetProps } from '../entities/pet';
 import { IPetRepository } from '../repositories/pet.repository';
 import { IOrganizationRepository } from '../repositories/organization.repository';
 
-interface SearchPetsByCityUseCaseRequest {
-  city: string
+interface SearchPetsByQueryUseCaseRequest {
+  city: string,
+  query?: Partial<PetProps>
 }
 
-interface SearchPetsByCityUseCaseResponse {
+interface SearchPetsByQueryUseCaseResponse {
   pets: Pet[];
 }
 
-export class SearchPetsByCityUseCase {
+export class SearchPetsByQueryUseCase {
   constructor(
     private petsRepository: IPetRepository,
     private organizationsRepository: IOrganizationRepository
   ) { }
 
-  async execute({ city }: SearchPetsByCityUseCaseRequest): Promise<SearchPetsByCityUseCaseResponse> {
+  async execute({ city, query }: SearchPetsByQueryUseCaseRequest): Promise<SearchPetsByQueryUseCaseResponse> {
 
     const organizationsInCity = await this.organizationsRepository.findManyByCity(city);
 
@@ -26,7 +27,7 @@ export class SearchPetsByCityUseCase {
 
     if (!organizationsIds || organizationsIds.length === 0) return {pets: []};
 
-    const pets = await this.petsRepository.findManyByOrgIds(organizationsIds);
+    const pets = await this.petsRepository.findManyByQuery(organizationsIds, query);
 
     return {
       pets,

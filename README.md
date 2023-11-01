@@ -17,7 +17,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [x] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
 
-[ ] Deve ser possível filtrar pets por suas características
+[x] Deve ser possível filtrar pets por suas características
 
 [x] Deve ser possível visualizar detalhes de um pet para adoção
 
@@ -39,7 +39,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 [ ] Deve utilizar autenticação JWT
 
 ## Regras de Negócios
-[ ] Para listar os pets, obrigatoriamente precisamos informar a cidade
+[x] Para listar os pets, obrigatoriamente precisamos informar a cidade
 
 [x] Uma ORG precisa ter um endereço e um número de WhatsApp
 
@@ -47,7 +47,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [ ] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
 
-[ ] Todos os filtros, além da cidade, são opcionais
+[x] Todos os filtros, além da cidade, são opcionais
 
 [ ] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 

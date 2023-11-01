@@ -34,4 +34,28 @@ export class Pet extends Entity<PetProps> {
   get name() {
     return this.props.name;
   }
+
+  get description() {
+    return this.props.description;
+  }
+
+  get age() {
+    return this.props.age;
+  }
+
+  get size() {
+    return this.props.size;
+  }
+
+  get energy() {
+    return this.props.energy;
+  }
+
+  get independency() {
+    return this.props.independency;
+  }
+
+  get environment() {
+    return this.props.environment;
+  }
 }
