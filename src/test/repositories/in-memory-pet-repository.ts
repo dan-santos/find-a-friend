@@ -11,4 +11,11 @@ export class InMemoryPetRepository implements IPetRepository {
   async findManyByOrgIds(orgIds: string[]): Promise<Pet[]> {
     return this.items.filter(pet => orgIds.includes(pet.orgId.toString()));
   }
+
+  async findById(petId: string): Promise<Pet | null> {
+    const pet = this.items.find(pet => pet.id.toString() === petId);
+
+    if (!pet) return null;
+    return pet;
+  }
 }

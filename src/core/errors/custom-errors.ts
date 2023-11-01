@@ -9,3 +9,9 @@ export class InvalidCredentialsError extends Error{
     super('Wrong credentials');
   }
 }
+
+export class ResourceNotFoundError extends Error{
+  constructor() {
+    super('Resource Not Found');
+  }
+}
