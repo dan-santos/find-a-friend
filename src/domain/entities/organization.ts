@@ -12,7 +12,7 @@ export interface OrganizationProps {
   address: string;
   password: string;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Organization extends Entity<OrganizationProps> {
@@ -40,5 +40,25 @@ export class Organization extends Entity<OrganizationProps> {
 
   get address() {
     return this.props.address;
+  }
+
+  get cep() {
+    return this.props.cep;
+  }
+
+  get phone() {
+    return this.props.phone;
+  }
+
+  get responsableName() {
+    return this.props.responsableName;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
   }
 }

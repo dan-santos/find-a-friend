@@ -9,7 +9,7 @@ interface CreatePetUseCaseRequest {
   description: string;
   age: number;
   size: 'Pequeno' | 'Mediano' | 'Grande';
-  energy: 'Muito baixa' | 'Baixa' | 'Mediana' | 'Alta' | 'Muita alta';
+  energy: 'Baixissima' | 'Baixa' | 'Mediana' | 'Alta' | 'Altissima';
   independency: 'Baixo' | 'Moderado' | 'Alto';
   environment: 'Pequeno' | 'Mediano' | 'Grande';
   photosIds: string[];

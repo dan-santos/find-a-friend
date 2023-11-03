@@ -8,12 +8,12 @@ export interface PetProps {
   description: string;
   age: number;
   size: 'Pequeno' | 'Mediano' | 'Grande';
-  energy: 'Muito baixa' | 'Baixa' | 'Mediana' | 'Alta' | 'Muita alta';
+  energy: 'Baixissima' | 'Baixa' | 'Mediana' | 'Alta' | 'Altissima';
   independency: 'Baixo' | 'Moderado' | 'Alto';
   environment: 'Pequeno' | 'Mediano' | 'Grande';
   photosIds: string[];
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Pet extends Entity<PetProps> {
@@ -57,5 +57,17 @@ export class Pet extends Entity<PetProps> {
 
   get environment() {
     return this.props.environment;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
+  get photosIds() {
+    return this.props.photosIds;
   }
 }
