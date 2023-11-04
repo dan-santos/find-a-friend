@@ -1,6 +1,8 @@
 import { fakerPT_BR as faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entitites/unique-entity-id';
 import { Organization, OrganizationProps } from 'src/domain/entities/organization';
+import { PrismaOrganizationMapper } from 'src/infra/database/prisma/mappers/organization-mapper';
+import { prisma } from 'src/infra/database/prisma/prisma.service';
 
 export function makeOrganization(
   override: Partial<OrganizationProps> = {},
@@ -12,11 +14,21 @@ export function makeOrganization(
     email: faker.internet.email(),
     phone: faker.phone.number(),
     cep: faker.location.zipCode(),
-    password: '123456',
+    password: faker.lorem.words(6),
     ...override,
   },
   id,
   );
+
+  return fakeOrganization;
+}
+
+export async function makePrismaOrganization(data: Partial<OrganizationProps> = {}): Promise<Organization> {
+  const fakeOrganization = makeOrganization(data);
+
+  await prisma.organization.create({
+    data: PrismaOrganizationMapper.toPrisma(fakeOrganization)
+  });
 
   return fakeOrganization;
 }
