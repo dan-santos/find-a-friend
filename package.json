@@ -7,9 +7,9 @@
     "lint": "eslint src --ext .ts",
     "test:create": "npm link ./prisma/vitest-environment-prisma",
     "test:install": "npm link vitest-environment-prisma",
-    "test": "vitest run --reporter verbose",
+    "test": "vitest run --config ./vite.config.ts --reporter verbose",
     "pretest:e2e": "run-s test:create test:install",
-    "test:e2e": "vitest run --dir src/infra",
+    "test:e2e": "vitest run --config ./vite.e2e.config.ts",
     "dev": "tsx watch src/server.ts",
     "prd": "node build/server.js",
     "build": "tsup --out-dir build"

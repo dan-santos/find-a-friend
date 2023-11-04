@@ -6,6 +6,11 @@ export default defineConfig({
   test: {
     globals: true,
     root: './',
+    environmentMatchGlobs: [
+      ['src/infra/**', 'prisma']
+    ],
+    dir: 'src',
+    include: ['**/*.{e2e-spec,e2e-test,e2e}.?(c|m)[jt]s?(x)']
   },
   plugins: [
     tsConfigPaths(),
