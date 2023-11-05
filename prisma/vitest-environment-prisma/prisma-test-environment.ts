@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { Environment } from 'vitest';
 import { execSync } from 'node:child_process';
 import 'dotenv/config';
-import { prisma } from 'src/infra/database/prisma/prisma.service';
+import { PrismaAdapter } from 'src/infra/database/prisma/prisma.adapter';
 
 function generateDatabseURL(schema: string) {
   if (!process.env.DATABASE_URL) {
@@ -19,6 +19,7 @@ function generateDatabseURL(schema: string) {
 export default <Environment>{
   name: 'prisma',
   async setup() {
+    const prisma = new PrismaAdapter();
     const schema = `test-${randomUUID()}`;
     const testDatabaseURL = generateDatabseURL(schema);
 

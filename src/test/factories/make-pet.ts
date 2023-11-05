@@ -1,8 +1,8 @@
 import { fakerPT_BR as faker } from '@faker-js/faker';
+import { PrismaClient } from '@prisma/client';
 import { UniqueEntityID } from 'src/core/entitites/unique-entity-id';
 import { Pet, PetProps } from 'src/domain/entities/pet';
 import { PrismaPetMapper } from 'src/infra/database/prisma/mappers/pet-mapper';
-import { prisma } from 'src/infra/database/prisma/prisma.service';
 
 export function makePet(
   override: Partial<PetProps> = {},
@@ -25,7 +25,7 @@ export function makePet(
   return fakePet;
 }
 
-export async function makePrismaPet(data: Partial<PetProps> = {}): Promise<Pet> {
+export async function makePrismaPet(prisma: PrismaClient, data: Partial<PetProps> = {}): Promise<Pet> {
   const fakePet = makePet(data);
 
   await prisma.pet.create({
