@@ -39,7 +39,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [ ] Deve ser deployado em nuvem
 
-[ ] Deve utilizar autenticação JWT
+[x] Deve utilizar autenticação JWT
 
 ## Regras de Negócios
 [x] Para listar os pets, obrigatoriamente precisamos informar a cidade
@@ -48,7 +48,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [x] Um pet deve estar ligado a uma ORG
 
-[ ] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
+[x] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
 
 [x] Todos os filtros, além da cidade, são opcionais
 

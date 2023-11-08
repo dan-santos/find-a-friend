@@ -5,9 +5,24 @@ import { petsRoutes } from './infra/http/controllers/pet/routes';
 import { organizationsRoutes } from './infra/http/controllers/organization/routes';
 import { WrongTypeError } from './core/errors/custom-errors';
 import { adoptionsRoutes } from './infra/http/controllers/adoption/routes';
+import { fastifyJwt } from '@fastify/jwt';
+import fastifyCookie from '@fastify/cookie';
+import { sessionsRoutes } from './infra/http/controllers/sessions/routes';
 
 export const app = fastify();
 
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: '10m',
+  },
+});
+app.register(fastifyCookie);
+app.register(sessionsRoutes);
 app.register(petsRoutes);
 app.register(organizationsRoutes);
 app.register(adoptionsRoutes);
