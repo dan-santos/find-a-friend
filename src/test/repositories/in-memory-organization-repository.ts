@@ -14,6 +14,12 @@ export class InMemoryOrganizationRepository implements IOrganizationRepository {
     return organization;
   }
 
+  async findById(organizationId: string): Promise<Organization | null> {
+    const organization = this.items.find(org => org.id.toString() === organizationId);
+    if (!organization) return null;
+    return organization;
+  }
+
   async findManyByCity(city: string): Promise<Organization[] | null> {
     const organizations = this.items.filter(org => org.address.includes(city) || org.address === city);
     return organizations;

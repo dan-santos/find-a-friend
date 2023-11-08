@@ -1,6 +1,6 @@
 import { Adoption } from 'src/domain/entities/adoption';
 import { IAdoptionRepository } from 'src/domain/repositories/adoption.repository';
-import { PrismaAdoptionMapper } from '../mappers/adoption-mapper';
+import { AdoptionDetails, PrismaAdoptionMapper } from '../mappers/adoption-mapper';
 import { PrismaAdapter } from '../prisma.adapter';
 
 export class PrismaAdoptionRepository implements IAdoptionRepository {
@@ -13,15 +13,19 @@ export class PrismaAdoptionRepository implements IAdoptionRepository {
     });
   }
 
-  async findByPetId(petId: string): Promise<Adoption | null> {
+  async findByPetId(petId: string): Promise<AdoptionDetails | null> {
     const adoption = await this.prisma.adoption.findUnique({
       where: {
         petId,
       },
+      include: {
+        organization: true,
+        pet: true
+      },
     });
 
     if (!adoption) return null;
-    return PrismaAdoptionMapper.toDomain(adoption);
+    return PrismaAdoptionMapper.toDomainWithDetails(adoption);
   }
 
   async findManyByOrgId(orgId: string): Promise<Adoption[]> {

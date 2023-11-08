@@ -1,13 +1,13 @@
 import { IAdoptionRepository } from '../repositories/adoption.repository';
-import { Adoption } from '../entities/adoption';
 import { ResourceNotFoundError } from 'src/core/errors/custom-errors';
+import { AdoptionDetails } from 'src/infra/database/prisma/mappers/adoption-mapper';
 
 interface GetAdoptionByPetIdUseCaseRequest {
   petId: string,
 }
 
 interface GetAdoptionByPetIdUseCaseResponse {
-  adoption: Adoption,
+  adoption: AdoptionDetails,
 }
 
 export class GetAdoptionByPetIdUseCase {

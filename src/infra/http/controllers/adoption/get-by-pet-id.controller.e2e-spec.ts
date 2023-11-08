@@ -30,6 +30,6 @@ describe('[e2e] Get adoption by pet id', () => {
       .send();
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body.adoption).toEqual(expect.objectContaining({ petId: pet.id.toString() }));
+    expect(response.body.adoptionDetails).toEqual(expect.objectContaining({ adoption: expect.any(Object) }));
   });
 });

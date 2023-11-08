@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { makeGetAdoptionByPetIdUseCase } from 'src/infra/factories/make-get-adoption-by-pet-id-use-case';
-import { AdoptionPresenter } from '../../presenters/adoption.presenter';
+import { AdoptionDetailsPresenter } from '../../presenters/adoption-details.presenter';
 
 export async function getByPetId(req: FastifyRequest, reply: FastifyReply) {
   const params = z.object({
@@ -16,5 +16,5 @@ export async function getByPetId(req: FastifyRequest, reply: FastifyReply) {
     petId: getSchema.petId
   });
 
-  return reply.status(200).send({ adoption: AdoptionPresenter.toHttp(adoption) });
+  return reply.status(200).send({ adoptionDetails: AdoptionDetailsPresenter.toHttp(adoption) });
 }
