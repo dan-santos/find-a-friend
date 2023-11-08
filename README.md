@@ -30,7 +30,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 ## Requisitos Não-Funcionais
 [x] Deve ter testes unitários
 
-[ ] Deve ter testes end-2-end
+[x] Deve ter testes end-2-end
 
 [x] Deve ser integrado a uma pipeline de CI/CD do github actions
 
