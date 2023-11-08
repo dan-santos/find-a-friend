@@ -4,11 +4,13 @@ import { env } from './env';
 import { petsRoutes } from './infra/http/controllers/pet/routes';
 import { organizationsRoutes } from './infra/http/controllers/organization/routes';
 import { WrongTypeError } from './core/errors/custom-errors';
+import { adoptionsRoutes } from './infra/http/controllers/adoption/routes';
 
 export const app = fastify();
 
 app.register(petsRoutes);
 app.register(organizationsRoutes);
+app.register(adoptionsRoutes);
 
 app.setErrorHandler((err, _, res) => {
   if (err instanceof ZodError) {

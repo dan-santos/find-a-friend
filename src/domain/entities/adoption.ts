@@ -7,7 +7,7 @@ export interface AdoptionProps {
   orgId: UniqueEntityID;
   requirements: string[];
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Adoption extends Entity<AdoptionProps> {
@@ -27,5 +27,17 @@ export class Adoption extends Entity<AdoptionProps> {
 
   get orgId() {
     return this.props.orgId;
+  }
+
+  get requirements() {
+    return this.props.requirements;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
   }
 }

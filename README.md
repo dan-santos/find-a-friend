@@ -21,7 +21,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [x] Deve ser possível visualizar detalhes de um pet para adoção
 
-[ ] Deve ser possível visualizar detalhes do pet + requisitos da adoção
+[x] Deve ser possível visualizar detalhes do pet + requisitos da adoção
 
 [x] Deve ser possível se cadastrar como uma ORG
 

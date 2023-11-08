@@ -3,10 +3,11 @@ import { app } from 'src/app';
 import { makePrismaOrganization } from 'src/test/factories/make-organization';
 import { PrismaAdapter } from 'src/infra/database/prisma/prisma.adapter';
 import { makePrismaPet } from 'src/test/factories/make-pet';
+import { makePrismaAdoption } from 'src/test/factories/make-adoption';
 
 let prismaService: PrismaAdapter;
 
-describe('[e2e] Get Pet', () => {
+describe('[e2e] Get adoption by pet id', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -19,15 +20,16 @@ describe('[e2e] Get Pet', () => {
     prismaService = new PrismaAdapter();
   });
 
-  it('should be able to get a pet', async () => {
+  it('should be able to get an adoption by pet id', async () => {
     const org = await makePrismaOrganization(prismaService);
-    const pet = await makePrismaPet(prismaService, { orgId: org.id, name: 'afonso' });
+    const pet = await makePrismaPet(prismaService, { orgId: org.id });
+    await makePrismaAdoption(prismaService, { petId: pet.id, orgId: org.id });
 
     const response = await request(app.server)
-      .get(`/pets/${pet.id.toString()}`)
+      .get(`/adoptions/pets/${pet.id.toString()}`)
       .send();
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body.pet).toEqual(expect.objectContaining({ name: 'afonso' }));
+    expect(response.body.adoption).toEqual(expect.objectContaining({ petId: pet.id.toString() }));
   });
 });
