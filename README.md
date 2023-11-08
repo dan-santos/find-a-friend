@@ -1,3 +1,6 @@
+[![Run e2e Tests](https://github.com/dan-santos/find-a-friend/actions/workflows/run-e2e-tests.yml/badge.svg)](https://github.com/dan-santos/find-a-friend/actions/workflows/run-e2e-tests.yml)
+[![Run Unit Tests](https://github.com/dan-santos/find-a-friend/actions/workflows/run-unit-tests.yml/badge.svg)](https://github.com/dan-santos/find-a-friend/actions/workflows/run-unit-tests.yml)
+
 # Find a Friend
 Projeto REST utilizando Fastify, Clean Architecture e DDD
 ---
