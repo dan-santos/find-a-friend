@@ -44,7 +44,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 ## Regras de Negócios
 [x] Para listar os pets, obrigatoriamente precisamos informar a cidade
 
-[x] Uma ORG precisa ter um endereço e um número de WhatsApp
+[x] Uma ORG precisa ter um endereço e um número de WhatsApp*
 
 [x] Um pet deve estar ligado a uma ORG
 
@@ -52,6 +52,17 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [x] Todos os filtros, além da cidade, são opcionais
 
-[ ] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
+[x] Para uma ORG acessar a aplicação como admin, ela precisa estar logada**
 
 [Figma do front-end](https://www.figma.com/community/file/1220006040435238030)
+
+---
+
+Observações
+
+* Fechado pois redirecionar para um chat do whatsapp deve ser função do front-end, o back-end retorna para o client-side
+  todos os detalhes da organização necessários para a página de adoção de um pet em específico.
+
+** Fechado pois as rotas que devem ser protegidas já estão com o middleware de autenticação JWT. Os RF, RNF, RN e protótipo
+  do Figma não estabelecem nenhuma diferenciação de role para as organizações logadas em nenhuma funcionalidade, sendo assim,
+  toda a lógica agregada de RBAC não se fez necessária para esse projeto.
