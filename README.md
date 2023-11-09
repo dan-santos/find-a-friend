@@ -56,7 +56,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 ## Próximos passos
 
-[-] Adicionar Swagger para documentação
+[x] Adicionar Swagger para documentação
 
 [ ] Adicionar Redis para cache
 

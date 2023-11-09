@@ -10,31 +10,469 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "tags": [
+    { "name": "Authentication", "description": "Authentication related end-points" },
     { "name": "Organization", "description": "Organization related end-points" },
     { "name": "Pet", "description": "Pet related end-points" },
     { "name": "Adoption", "description": "Adoption related end-points" }
   ],
-  "definitions": {
-    "Organization": {
-      "type": "object",
-      "required": ["responsableName", "email", "cep", "phone", "address", "password"],
-      "properties": {
-        "responsableName": { "type": "string", "format": "uuid" },
-        "cep": { "type": "string" },
-        "address": { "type": "string" },
-        "phone": { "type": "string" },
-        "email": {"type": "string", "format": "email" },
-        "password": {"type": "string" }
+  "paths": {
+    "/sessions": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Authenticate organization",
+        "description": "Authenticates an organization and returns an access token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful authentication",
+            "headers": {
+              "Set-Cookie": {
+                "description": "New refresh token",
+                "schema": {
+                  "type": "string",
+                  "example": "refreshToken=newTokenValue; Path=/; Secure; HttpOnly=true; SameSite=Lax"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                 "type": "object",
+                 "properties": {
+                   "access_token": {
+                     "type": "string"
+                   }
+                 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token/refresh": {
+      "patch": {
+        "tags": ["Authentication"],
+        "summary": "Refresh access token",
+        "description": "Refreshes the access token and returns a new one",
+        "parameters": [
+          {
+            "name": "refreshToken",
+            "in": "cookie",
+            "description": "Refresh token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful token refresh",
+            "headers": {
+              "Set-Cookie": {
+                "description": "New refresh token",
+                "schema": {
+                  "type": "string",
+                  "example": "refreshToken=newTokenValue; Path=/; Secure; HttpOnly=true; SameSite=Lax"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                 "type": "object",
+                 "properties": {
+                   "access_token": {
+                     "type": "string"
+                   }
+                 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pets": {
+      "post": {
+        "tags": ["Pet"],
+        "summary": "Create a pet",
+        "description": "Creates a new pet",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pet created successfully"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Pet"],
+        "summary": "Search pets by properties",
+        "description": "Searches for pets based on specific properties",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "City of the pet",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of the pet",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "description": "Age of the pet. Must be integer",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size of the pet",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["Pequeno", "Mediano", "Grande"]
+            }
+          },
+          {
+            "name": "energy",
+            "in": "query",
+            "description": "Energy level of the pet",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["Baixissima", "Baixa", "Mediana", "Alta", "Altissima"]
+            }
+          },
+          {
+            "name": "independency",
+            "in": "query",
+            "description": "Independency level of the pet",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["Baixo", "Moderado", "Alto"]
+            }
+          },
+          {
+            "name": "environment",
+            "in": "query",
+            "description": "Environment of the pet",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["Pequeno", "Mediano", "Grande"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                 "type": "object",
+                 "properties": {
+                   "pets": {
+                     "type": "array",
+                     "items": {
+                       "$ref": "#/components/schemas/Pet"
+                     }
+                   }
+                 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pets/{id}": {
+      "get": {
+        "tags": ["Pet"],
+        "summary": "Get Pet by ID",
+        "description": "Returns a single Pet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "UUID of the Pet",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                 "type": "object",
+                 "properties": {
+                   "pet": {
+                     "$ref": "#/components/schemas/Pet"
+                   }
+                 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations": {
+      "post": {
+        "tags": ["Organization"],
+        "summary": "Create an organization",
+        "description": "Creates a new organization",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Organization"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Organization created successfully"
+          }
+        }
+      }
+    },
+    "/adoptions": {
+      "post": {
+        "tags": ["Adoption"],
+        "summary": "Publish adoption",
+        "description": "Publishes an adoption event. This means that an organization has just enabled a previously registered Pet to be adopted",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Adoption"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Adoption published successfully"
+          }
+        }
+      }
+    },
+    "/adoptions/pets/{petId}": {
+      "get": {
+        "tags": ["Adoption"],
+        "summary": "Get adoption by petId",
+        "description": "Gets adoption details by petId",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "UUID of the pet",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                 "type": "object",
+                 "properties": {
+                   "adoptionDetails": {
+                     "$ref": "#/components/schemas/AdoptionDetailsResponse"
+                   }
+                 }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
-  "paths": {
-    "/my-route": {
-      "get": {
-        "summary": "My route",
-        "responses": {
-          "200": {
-            "description": "Successful response"
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orgId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number",
+            "minimum": 0
+          },
+          "size": {
+            "type": "string",
+            "enum": ["Pequeno", "Mediano", "Grande"]
+          },
+          "energy": {
+            "type": "string",
+            "enum": ["Baixissima", "Baixa", "Mediana", "Alta", "Altissima"]
+          },
+          "independency": {
+            "type": "string",
+            "enum": ["Baixo", "Moderado", "Alto"]
+          },
+          "environment": {
+            "type": "string",
+            "enum": ["Pequeno", "Mediano", "Grande"]
+          },
+          "photosIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["orgId", "name", "description", "age", "size", "energy", "independency", "environment", "photosIds"]
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "responsableName": {
+           "type": "string"
+          },
+          "email": {
+           "type": "string",
+           "format": "email"
+          },
+          "cep": {
+           "type": "string"
+          },
+          "phone": {
+           "type": "string"
+          },
+          "address": {
+           "type": "string"
+          },
+          "password": {
+           "type": "string",
+           "minLength": 6
+          }
+        },
+        "required": ["responsableName", "email", "cep", "phone", "address", "password"]
+      },
+      "Adoption": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "petId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orgId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["petId", "orgId", "requirements"]
+      },
+      "AdoptionDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "adoption": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Adoption"
+              }
+            ]
+          },
+          "pet": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Pet"
+              }
+            ]
+          },
+          "organization": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Organization"
+              }
+            ]
           }
         }
       }

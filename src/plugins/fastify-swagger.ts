@@ -1,9 +1,10 @@
 import { FastifyInstance } from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import fp from 'fastify-plugin';
 
 // fastifySwagger plugin
-export async function fastifySwaggerPlugin(fastify: FastifyInstance): Promise<void>{
+export const fastifySwaggerPlugin = fp(async function(fastify: FastifyInstance){
   fastify.register(fastifySwagger, {
     mode: 'static',
     specification: {
@@ -11,10 +12,10 @@ export async function fastifySwaggerPlugin(fastify: FastifyInstance): Promise<vo
       path: 'swagger.json',
     },
   });
-}
+});
 
 // swaggerUi plugin
-export async function swaggerUiPlugin(fastify: FastifyInstance): Promise<void> {
+export const swaggerUiPlugin = fp(async function (fastify: FastifyInstance) {
   fastify.register(swaggerUi, {
     routePrefix: '/docs',
     uiConfig: {
@@ -23,4 +24,4 @@ export async function swaggerUiPlugin(fastify: FastifyInstance): Promise<void> {
       filter: true,
     }
   });
-}
+});
