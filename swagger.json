@@ -3,7 +3,7 @@
   "info": {
     "title": "Find a friend API",
     "description": "Study project using Fastify, TS, Prisma and Clenan Arch/DDD",
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   "host": "localhost",
   "schemes": ["http"],
@@ -369,6 +369,7 @@
     "schemas": {
       "PetDetail": {
         "type": "object",
+        "description": "Fulfilled schema of Pet. Used when creating and when getting specific adoption/pet information",
         "properties": {
           "id": {
             "type": "string",
@@ -415,6 +416,7 @@
       },
       "Pet": {
         "type": "object",
+        "description": "Simplyfied schema of Pet. Used when fetch many by query search",
         "properties": {
           "id": {
             "type": "string",
@@ -437,6 +439,7 @@
       },
       "OrganizationDetail": {
         "type": "object",
+        "description": "Fulfilled schema of Organization. Used when creating and when getting specific adoption/organization information",
         "properties": {
           "id": {
             "type": "string",
@@ -467,6 +470,7 @@
       },
       "Organization": {
         "type": "object",
+        "description": "Simplyfied schema of Organization. Used when fetch many by query search",
         "properties": {
           "id": {
             "type": "string",
@@ -492,6 +496,7 @@
       },
       "AdoptionDetail": {
         "type": "object",
+        "description": "Fulfilled schema of Adoption. Used only when creating/publishing new adoption",
         "properties": {
           "id": {
             "type": "string",
@@ -516,6 +521,7 @@
       },
       "Adoption": {
         "type": "object",
+        "description": "Fulfilled schema of Adoption. Used when getting specific adoption information. This also retrieves all data of related pet and organization",
         "properties": {
           "adoption": {
             "allOf": [
