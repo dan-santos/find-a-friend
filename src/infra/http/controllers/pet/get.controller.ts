@@ -16,5 +16,5 @@ export async function get(req: FastifyRequest, reply: FastifyReply) {
     petId: getSchema.id
   });
 
-  return reply.status(200).send({ pet: PetPresenter.toHttp(pet) });
+  return reply.status(200).send({ pet: PetPresenter.toHttpWithDetails(pet) });
 }

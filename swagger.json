@@ -3,7 +3,7 @@
   "info": {
     "title": "Find a friend API",
     "description": "Study project using Fastify, TS, Prisma and Clenan Arch/DDD",
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   "host": "localhost",
   "schemes": ["http"],
@@ -119,12 +119,17 @@
         "tags": ["Pet"],
         "summary": "Create a pet",
         "description": "Creates a new pet",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Pet"
+                "$ref": "#/components/schemas/PetDetail"
               }
             }
           }
@@ -257,7 +262,7 @@
                  "type": "object",
                  "properties": {
                    "pet": {
-                     "$ref": "#/components/schemas/Pet"
+                     "$ref": "#/components/schemas/PetDetail"
                    }
                  }
                 }
@@ -277,7 +282,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Organization"
+                "$ref": "#/components/schemas/OrganizationDetail"
               }
             }
           }
@@ -294,12 +299,17 @@
         "tags": ["Adoption"],
         "summary": "Publish adoption",
         "description": "Publishes an adoption event. This means that an organization has just enabled a previously registered Pet to be adopted",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Adoption"
+                "$ref": "#/components/schemas/AdoptionDetail"
               }
             }
           }
@@ -337,7 +347,7 @@
                  "type": "object",
                  "properties": {
                    "adoptionDetails": {
-                     "$ref": "#/components/schemas/AdoptionDetailsResponse"
+                     "$ref": "#/components/schemas/Adoption"
                    }
                  }
                 }
@@ -349,8 +359,15 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
-      "Pet": {
+      "PetDetail": {
         "type": "object",
         "properties": {
           "id": {
@@ -396,7 +413,29 @@
         },
         "required": ["orgId", "name", "description", "age", "size", "energy", "independency", "environment", "photosIds"]
       },
-      "Organization": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orgId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "photosIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "OrganizationDetail": {
         "type": "object",
         "properties": {
           "id": {
@@ -426,7 +465,32 @@
         },
         "required": ["responsableName", "email", "cep", "phone", "address", "password"]
       },
-      "Adoption": {
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "responsableName": {
+           "type": "string"
+          },
+          "email": {
+           "type": "string",
+           "format": "email"
+          },
+          "cep": {
+           "type": "string"
+          },
+          "phone": {
+           "type": "string"
+          },
+          "address": {
+           "type": "string"
+          }
+        }
+      },
+      "AdoptionDetail": {
         "type": "object",
         "properties": {
           "id": {
@@ -450,27 +514,27 @@
         },
         "required": ["petId", "orgId", "requirements"]
       },
-      "AdoptionDetailsResponse": {
+      "Adoption": {
         "type": "object",
         "properties": {
           "adoption": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/Adoption"
+                "$ref": "#/components/schemas/AdoptionDetail"
               }
             ]
           },
           "pet": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/Pet"
+                "$ref": "#/components/schemas/PetDetail"
               }
             ]
           },
           "organization": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/Organization"
+                "$ref": "#/components/schemas/OrganizationDetail"
               }
             ]
           }

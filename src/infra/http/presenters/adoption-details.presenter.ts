@@ -11,8 +11,8 @@ export class AdoptionDetailsPresenter {
         petId: adoption.petId.toString(),
         requirements: adoption.requirements,
       },
-      pet: PetPresenter.toHttp(pet),
-      organization: OrganizationPresenter.toHttp(organization)
+      pet: PetPresenter.toHttpWithDetails(pet),
+      organization: OrganizationPresenter.toHttpWithDetails(organization)
     };
   }
 }

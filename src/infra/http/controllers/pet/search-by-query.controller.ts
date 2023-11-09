@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { makeSearchPetsByQueryUseCase } from 'src/infra/factories/make-search-pets-by-query-use-case';
 import { z } from 'zod';
+import { PetPresenter } from '../../presenters/pet.presenter';
 
 export async function searchByQuery(req: FastifyRequest, reply: FastifyReply) {
   const fetchPetsParams = z.object({
@@ -21,5 +22,5 @@ export async function searchByQuery(req: FastifyRequest, reply: FastifyReply) {
     city: params.city, query: {...params} 
   });
 
-  return reply.status(200).send({ pets });
+  return reply.status(200).send({ pets: pets.map(PetPresenter.toHttp) });
 }
