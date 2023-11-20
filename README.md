@@ -58,7 +58,7 @@ Projeto REST utilizando Fastify, Clean Architecture e DDD
 
 [x] Adicionar Swagger para documentação
 
-[ ] Adicionar Redis para cache
+[x] Adicionar Redis para cache
 
 [ ] Adicionar Kafka para logs
  

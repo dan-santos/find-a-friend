@@ -11,6 +11,10 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'prd']).default('prd'),
   PORT: z.coerce.number().default(3333),
   JWT_SECRET: z.string(),
+  REDIS_DB: z.coerce.number().default(0),
+  REDIS_PASSWORD: z.string(),
+  REDIS_HOST: z.string().default('127.0.0.1'),
+  REDIS_PORT: z.coerce.number().default(6379)
 });
 
 const _env = envSchema.safeParse(process.env);

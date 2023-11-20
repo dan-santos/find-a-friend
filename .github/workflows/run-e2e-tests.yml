@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      api-gympass-db:
+      find-a-friend-db:
         image: bitnami/postgresql
         ports:
           - 5432:5432
@@ -22,6 +22,13 @@ jobs:
           POSTGRESQL_USERNAME: docker
           POSTGRESQL_PASSWORD: docker
           POSTGRESQL_DATABASE: findafrienddb
+      nest-clean-cache:
+        image: bitnami/redis
+        ports:
+          - 6379:6379
+        env:
+          REDIS_PASSWORD: docker
+          REDIS_DB: 1
 
     steps:
       - uses: actions/checkout@v3
